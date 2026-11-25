@@ -39,14 +39,24 @@ JOB = JobRequirements(
     company="Northwind Labs",
     seniority="mid",
     requirements=[
-        Requirement(text="3+ years of Python", category="skill", importance="must_have",
-                    keywords=["Python"]),
-        Requirement(text="Experience with LangChain or LangGraph", category="skill",
-                    importance="must_have", keywords=["LangChain", "LangGraph"]),
-        Requirement(text="Experience with vector databases", category="skill",
-                    importance="must_have", keywords=["pgvector", "FAISS"]),
-        Requirement(text="Kubernetes", category="skill", importance="nice_to_have",
-                    keywords=["Kubernetes"]),
+        Requirement(
+            text="3+ years of Python", category="skill", importance="must_have", keywords=["Python"]
+        ),
+        Requirement(
+            text="Experience with LangChain or LangGraph",
+            category="skill",
+            importance="must_have",
+            keywords=["LangChain", "LangGraph"],
+        ),
+        Requirement(
+            text="Experience with vector databases",
+            category="skill",
+            importance="must_have",
+            keywords=["pgvector", "FAISS"],
+        ),
+        Requirement(
+            text="Kubernetes", category="skill", importance="nice_to_have", keywords=["Kubernetes"]
+        ),
     ],
 )
 
@@ -54,12 +64,24 @@ JOB = JobRequirements(
 ANALYSIS = MatchAnalysis(
     matches=[
         RequirementMatch(requirement="Kubernetes", status="missing", note="Not mentioned."),
-        RequirementMatch(requirement="3+ years of Python", status="met",
-                         evidence="4 years of experience building Python services", note="ok"),
-        RequirementMatch(requirement="Experience with LangChain or LangGraph", status="partial",
-                         evidence="RAG demo ... using LangChain and FAISS", note="Project only."),
-        RequirementMatch(requirement="Experience with vector databases", status="partial",
-                         evidence="LangChain and FAISS", note="Project only."),
+        RequirementMatch(
+            requirement="3+ years of Python",
+            status="met",
+            evidence="4 years of experience building Python services",
+            note="ok",
+        ),
+        RequirementMatch(
+            requirement="Experience with LangChain or LangGraph",
+            status="partial",
+            evidence="RAG demo ... using LangChain and FAISS",
+            note="Project only.",
+        ),
+        RequirementMatch(
+            requirement="Experience with vector databases",
+            status="partial",
+            evidence="LangChain and FAISS",
+            note="Project only.",
+        ),
     ],
     strengths=["Production FastAPI experience"],
 )

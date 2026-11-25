@@ -1,9 +1,9 @@
 """The LangGraph workflow.
 
-    START ─┬─ parse_resume ─┐
-           └─ parse_job ────┴─ match ─ score ─ optimize ─ guard ─┬─ finalize ─ END
-                                                  ▲               │
-                                                  └── revise ─────┘  (issues & budget left)
+START ─┬─ parse_resume ─┐
+       └─ parse_job ────┴─ match ─ score ─ optimize ─ guard ─┬─ finalize ─ END
+                                              ▲               │
+                                              └── revise ─────┘  (issues & budget left)
 """
 
 from functools import lru_cache

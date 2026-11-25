@@ -337,6 +337,108 @@ def render_pdf(cv: TailoredCV) -> bytes:
     return buf.getvalue()
 
 
-def pdf_filename(cv: TailoredCV) -> str:
+def cv_filename(cv: TailoredCV, ext: str) -> str:
     slug = re.sub(r"[^A-Za-z0-9]+", "_", cv.name).strip("_") or "CV"
-    return f"{slug}_CV.pdf"
+    return f"{slug}_CV.{ext}"
+
+
+# ---------------------------------------------------------------- DOCX
+
+
+def render_docx(cv: TailoredCV) -> bytes:
+    """An editable Word version with the same layout as the PDF, using real Word styles
+    (headings, bullet lists, a right tab stop for dates) so it stays easy to edit and ATS-safe."""
+    from docx import Document
+    from docx.enum.text import WD_TAB_ALIGNMENT
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import Mm, Pt, RGBColor
+
+    ink, muted, accent = (
+        RGBColor(0x18, 0x18, 0x1B),
+        RGBColor(0x52, 0x52, 0x5B),
+        RGBColor(0x4F, 0x46, 0xE5),
+    )
+    doc = Document()
+    section = doc.sections[0]
+    section.page_width, section.page_height = Mm(210), Mm(297)
+    section.left_margin = section.right_margin = Mm(18)
+    section.top_margin = section.bottom_margin = Mm(16)
+    text_width = section.page_width - section.left_margin - section.right_margin
+
+    normal = doc.styles["Normal"]
+    normal.font.name, normal.font.size, normal.font.color.rgb = "Calibri", Pt(10.5), ink
+    normal.paragraph_format.space_after = Pt(0)
+    normal.paragraph_format.line_spacing = 1.1
+
+    def para(text: str = "", *, size=None, bold=False, color=None, after=0, style=None):
+        p = doc.add_paragraph(style=style)
+        p.paragraph_format.space_after = Pt(after)
+        if text:
+            run = p.add_run(text)
+            run.bold = bold
+            if size:
+                run.font.size = Pt(size)
+            if color is not None:
+                run.font.color.rgb = color
+        return p
+
+    def heading(title: str):
+        p = para(title.upper(), size=10.5, bold=True, color=accent, after=3)
+        p.paragraph_format.space_before = Pt(10)
+        p.paragraph_format.keep_with_next = True
+        # Thin rule under the heading, like the PDF.
+        border = OxmlElement("w:pBdr")
+        bottom = OxmlElement("w:bottom")
+        for k, v in {"w:val": "single", "w:sz": "4", "w:space": "1", "w:color": "D4D4D8"}.items():
+            bottom.set(qn(k), v)
+        border.append(bottom)
+        p._p.get_or_add_pPr().append(border)
+
+    def bullet(text: str):
+        p = para(text, style="List Bullet")
+        p.paragraph_format.space_after = Pt(1.5)
+
+    para(cv.name, size=22, bold=True)
+    if cv.headline:
+        para(cv.headline, size=12, color=accent, after=2)
+    if cv.contact:
+        para("  ·  ".join(cv.contact), size=9.5, color=muted)
+
+    if cv.summary:
+        heading("Summary")
+        para(cv.summary)
+    if cv.skills:
+        heading("Skills")
+        para(", ".join(cv.skills))
+    if cv.experience:
+        heading("Experience")
+        for i, role in enumerate(cv.experience):
+            p = doc.add_paragraph()
+            p.paragraph_format.space_before = Pt(6 if i else 0)
+            p.paragraph_format.space_after = Pt(1)
+            p.paragraph_format.keep_with_next = True
+            p.paragraph_format.tab_stops.add_tab_stop(text_width, WD_TAB_ALIGNMENT.RIGHT)
+            p.add_run(role.title).bold = True
+            p.add_run("  ·  ").font.color.rgb = muted
+            p.add_run(role.company).bold = True
+            if role.dates:
+                dates = p.add_run(f"	{role.dates}")
+                dates.font.size, dates.font.color.rgb = Pt(9.5), muted
+            for b in role.bullets:
+                bullet(b)
+    for title, items in (
+        ("Projects", cv.projects),
+        ("Education", cv.education),
+        ("Certifications", cv.certifications),
+    ):
+        if items:
+            heading(title)
+            for x in items:
+                bullet(x)
+
+    doc.core_properties.title = f"{cv.name} - CV"
+    doc.core_properties.author = cv.name
+    buf = BytesIO()
+    doc.save(buf)
+    return buf.getvalue()

@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   Download,
   ExternalLink,
+  FileText,
   History,
   Loader2,
   Sparkles,
@@ -85,6 +86,12 @@ export function CVStudio({ cvId }: { cvId: string }) {
               <Button size="sm">
                 <ExternalLink className="size-3.5" />
                 View online
+              </Button>
+            </a>
+            <a href={urls.docx} download>
+              <Button size="sm">
+                <FileText className="size-3.5" />
+                Download DOCX
               </Button>
             </a>
             <a href={urls.pdf} download>

@@ -61,7 +61,7 @@ async def match(state: AgentState) -> AgentState:
             SystemMessage(prompts.MATCH),
             HumanMessage(
                 f"<resume>\n{state['resume_text']}\n</resume>\n\n"
-                f"<job title=\"{job.title}\">\n{numbered}\n</job>"
+                f'<job title="{job.title}">\n{numbered}\n</job>'
             ),
         ]
     )
@@ -84,9 +84,7 @@ async def optimize(state: AgentState) -> AgentState:
         # Revision pass: show the model its rejected plan and exactly what was wrong with it.
         messages.append(HumanMessage(f"<previous_plan>\n{_dump(state['plan'])}\n</previous_plan>"))
         messages.append(
-            HumanMessage(
-                prompts.REVISE.format(issues="\n".join(f"- {i.detail}" for i in issues))
-            )
+            HumanMessage(prompts.REVISE.format(issues="\n".join(f"- {i.detail}" for i in issues)))
         )
         revisions += 1
     plan = await llm.structured(OptimizationPlan, "large").ainvoke(messages)

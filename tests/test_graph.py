@@ -10,8 +10,9 @@ from tests.conftest import JOB_TEXT, RESUME_TEXT
 
 
 def run(resume=RESUME_TEXT, job=JOB_TEXT):
-    return asyncio.run(builder.build_graph().ainvoke(
-        {"resume_text": resume, "job_text": job, "revisions": 0}))["report"]
+    return asyncio.run(
+        builder.build_graph().ainvoke({"resume_text": resume, "job_text": job, "revisions": 0})
+    )["report"]
 
 
 def test_guard_sends_plan_back_for_revision(fake_llm):

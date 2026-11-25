@@ -20,7 +20,9 @@ def extract_text(filename: str, data: bytes) -> str:
     elif suffix in (".txt", ".md"):
         text = data.decode("utf-8", errors="replace")
     else:
-        raise DocumentError(f"Unsupported file type {suffix or '(none)'}. Use {', '.join(SUPPORTED)}.")
+        raise DocumentError(
+            f"Unsupported file type {suffix or '(none)'}. Use {', '.join(SUPPORTED)}."
+        )
     text = "\n".join(line.rstrip() for line in text.splitlines()).strip()
     if not text:
         raise DocumentError(

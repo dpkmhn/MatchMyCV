@@ -74,4 +74,8 @@ export const editCV = (id: string, instruction: string, signal?: AbortSignal) =>
 export const undoCV = (id: string) =>
   fetch(`/api/cv/${id}/undo`, { method: "POST" }).then((r) => json<CVState>(r));
 
-export const cvUrls = (id: string) => ({ view: `/cv/${id}`, pdf: `/cv/${id}/pdf` });
+export const cvUrls = (id: string) => ({
+  view: `/cv/${id}`,
+  pdf: `/cv/${id}/pdf`,
+  docx: `/cv/${id}/docx`,
+});

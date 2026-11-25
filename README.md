@@ -42,6 +42,7 @@ After a run, the **New CV** tab shows the tailored resume as a page. From there:
 - **History / Undo**: every edit is a saved version (`data/cvs/<id>.json`).
 - **View online**: `/cv/<id>` is a standalone, printable page of the latest version.
 - **Download PDF**: `/cv/<id>/pdf`, an A4 PDF rendered with ReportLab.
+- **Download DOCX**: `/cv/<id>/docx`, an editable Word file (python-docx) with the same layout.
 
 ## Setup
 
@@ -89,7 +90,7 @@ API: `POST /api/optimize` (multipart: `job_text`, and `resume_file` or `resume_t
 NDJSON: one `{"event":"step"}` line per finished node, then `{"event":"result","report":…,"markdown":…,"cv_id":…}`.
 
 CV endpoints: `GET /api/cv/{id}`, `POST /api/cv/{id}/edit` (JSON `{"instruction": "..."}`),
-`POST /api/cv/{id}/undo`, `GET /cv/{id}` (HTML page), `GET /cv/{id}/pdf`.
+`POST /api/cv/{id}/undo`, `GET /cv/{id}` (HTML page), `GET /cv/{id}/pdf`, `GET /cv/{id}/docx`.
 
 ## Tests
 

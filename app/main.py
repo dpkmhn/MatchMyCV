@@ -5,7 +5,7 @@ then a final {"event": "result", ...} or {"event": "error", ...} line. Input pro
 rejected with a normal 4xx before streaming starts.
 
 The result carries a `cv_id`: the tailored CV is stored so it can be edited by prompt
-(/api/cv/{id}/edit, /undo), viewed online (/cv/{id}) and downloaded as PDF (/cv/{id}/pdf).
+(/api/cv/{id}/edit, /undo), viewed online (/cv/{id}) and downloaded as PDF (/cv/{id}/pdf) or Word (/cv/{id}/docx).
 """
 
 import json
@@ -20,7 +20,15 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from app.config import get_settings
-from app.cv import CVNotFound, CVStore, edit_cv, pdf_filename, render_pdf, unsupported_skills
+from app.cv import (
+    CVNotFound,
+    CVStore,
+    cv_filename,
+    edit_cv,
+    render_docx,
+    render_pdf,
+    unsupported_skills,
+)
 from app.documents import DocumentError, extract_text
 from app.graph.builder import get_graph
 from app.report import to_markdown
@@ -207,5 +215,18 @@ async def cv_pdf(cv_id: str, inline: bool = False):
     return Response(
         render_pdf(cv),
         media_type="application/pdf",
-        headers={"Content-Disposition": f'{disposition}; filename="{pdf_filename(cv)}"'},
+        headers={"Content-Disposition": f'{disposition}; filename="{cv_filename(cv, "pdf")}"'},
+    )
+
+
+DOCX_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+
+@app.get("/cv/{cv_id}/docx")
+async def cv_docx(cv_id: str):
+    cv = _load(cv_id)["cv"]
+    return Response(
+        render_docx(cv),
+        media_type=DOCX_TYPE,
+        headers={"Content-Disposition": f'attachment; filename="{cv_filename(cv, "docx")}"'},
     )

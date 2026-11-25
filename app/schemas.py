@@ -105,7 +105,9 @@ class MatchScore(BaseModel):
     must_have: int = Field(ge=0, le=100, description="% of must-have requirements met")
     nice_to_have: int = Field(ge=0, le=100)
     keyword_coverage: int = Field(
-        ge=0, le=100, description="% of requirements with at least one of their JD terms in the resume"
+        ge=0,
+        le=100,
+        description="% of requirements with at least one of their JD terms in the resume",
     )
     matched_keywords: list[str]
     missing_keywords: list[str]

@@ -6,7 +6,7 @@ from langchain_core.runnables import RunnableLambda
 
 from app import llm, main
 from app.config import Settings
-from app.cv import CVNotFound, CVStore, build_cv, render_pdf, unsupported_skills
+from app.cv import CVNotFound, CVStore, build_cv, render_docx, render_pdf, unsupported_skills
 from app.schemas import CVEdit
 from tests.conftest import EMBEDDINGS_BULLET, GOOD_PLAN, JOB_TEXT, RESUME, RESUME_TEXT
 
@@ -36,6 +36,19 @@ def test_headline_drops_contact_details():
 def test_render_pdf():
     pdf = render_pdf(build_cv(RESUME, GOOD_PLAN))
     assert pdf.startswith(b"%PDF") and len(pdf) > 1000
+
+
+def test_render_docx():
+    import io
+
+    from docx import Document
+
+    cv = build_cv(RESUME, GOOD_PLAN)
+    doc = Document(io.BytesIO(render_docx(cv)))
+    text = " | ".join(p.text for p in doc.paragraphs)
+    assert text.startswith("Alex Rivera")
+    assert GOOD_PLAN.bullet_rewrites[0].rewritten in text
+    assert "EXPERIENCE" in text and "Software Engineer" in text
 
 
 def test_unsupported_skills_flags_new_claims():
@@ -80,7 +93,9 @@ def test_edit_view_download_undo(client, monkeypatch):
         assert schema is CVEdit
 
         def respond(messages):
-            current = json.loads(messages[1].content.split("<current_cv>")[1].split("</current_cv>")[0])
+            current = json.loads(
+                messages[1].content.split("<current_cv>")[1].split("</current_cv>")[0]
+            )
             current["summary"] = "Python backend engineer."
             current["skills"].append("Kubernetes")
             return CVEdit.model_validate({"cv": current, "change_summary": "Shortened summary."})
@@ -101,6 +116,10 @@ def test_edit_view_download_undo(client, monkeypatch):
     pdf = client.get(f"/cv/{cv_id}/pdf")
     assert pdf.headers["content-type"] == "application/pdf"
     assert "Alex_Rivera_CV.pdf" in pdf.headers["content-disposition"]
+
+    docx = client.get(f"/cv/{cv_id}/docx")
+    assert docx.status_code == 200 and docx.content.startswith(b"PK")
+    assert "Alex_Rivera_CV.docx" in docx.headers["content-disposition"]
 
     r = client.post(f"/api/cv/{cv_id}/undo")
     assert r.json()["cv"]["summary"] != "Python backend engineer."

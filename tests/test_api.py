@@ -45,8 +45,13 @@ def test_optimize_accepts_docx_upload(client):
         doc.add_paragraph(line)
     buf = io.BytesIO()
     doc.save(buf)
-    files = {"resume_file": ("resume.docx", buf.getvalue(),
-                             "application/vnd.openxmlformats-officedocument.wordprocessingml.document")}
+    files = {
+        "resume_file": (
+            "resume.docx",
+            buf.getvalue(),
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        )
+    }
     r = client.post("/api/optimize", data={"job_text": JOB_TEXT}, files=files)
     assert events(r)[-1]["event"] == "result"
 
