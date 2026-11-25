@@ -80,6 +80,11 @@ export default function App() {
     setError(null);
   };
 
+  const goHome = () => {
+    reset();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const sample = () => {
     const s = randomSample();
     setMode("paste");
@@ -94,7 +99,7 @@ export default function App() {
   if (savedCvId && phase === "input") {
     return (
       <div className="relative">
-        <Header />
+        <Header onHome={goHome} />
         <main className="relative mx-auto max-w-6xl space-y-5 px-5 pt-8 pb-20">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
@@ -117,7 +122,7 @@ export default function App() {
   return (
     <div className="relative">
       <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[520px] text-zinc-900 dark:text-white" />
-      <Header />
+      <Header onHome={goHome} />
 
       <main className="relative mx-auto max-w-6xl space-y-6 px-5 pt-10 pb-20">
         {showInputs && phase === "input" && <Hero />}

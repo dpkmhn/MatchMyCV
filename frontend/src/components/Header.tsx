@@ -81,7 +81,7 @@ function LiveStatus() {
   );
 }
 
-export function Header() {
+export function Header({ onHome }: { onHome?: () => void }) {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
 
   useEffect(() => {
@@ -93,10 +93,25 @@ export function Header() {
     <header className="sticky top-0 z-30 border-b border-zinc-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/70">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
         <div className="flex items-center gap-2.5">
-          <div className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 text-white shadow-md shadow-brand-600/30">
-            <Sparkles className="size-4" />
-          </div>
-          <span className="font-semibold tracking-tight">MatchMyCV</span>
+          {/* A real link to "/", so middle-click / new tab work; a plain click resets in place. */}
+          <a
+            href="/"
+            aria-label="MatchMyCV home"
+            title="Go to home page"
+            onClick={(e) => {
+              if (!onHome || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+              e.preventDefault();
+              onHome();
+            }}
+            className="group flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-500"
+          >
+            <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 text-white shadow-md shadow-brand-600/30 transition-transform group-hover:scale-105">
+              <Sparkles className="size-4" />
+            </span>
+            <span className="font-semibold tracking-tight transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-300">
+              MatchMyCV
+            </span>
+          </a>
           <LiveStatus />
         </div>
         <button
