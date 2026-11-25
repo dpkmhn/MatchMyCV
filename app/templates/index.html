@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MatchMyCV</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>MatchMyCV <span class="tag">LangGraph agent</span></h1>
+      <p class="sub">Score your resume against a job, see every requirement matched with evidence, and get
+        rewrites that stay honest.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form id="form" class="inputs">
+      <section class="card">
+        <h2>1 · Your resume</h2>
+        <label class="drop" id="drop">
+          <input type="file" id="resume_file" name="resume_file" accept=".pdf,.docx,.txt,.md">
+          <span id="drop-label">Drop a PDF / DOCX / TXT here, or click to choose</span>
+        </label>
+        <p class="or">or paste it</p>
+        <textarea id="resume_text" name="resume_text" rows="12" placeholder="Paste resume text…"></textarea>
+      </section>
+
+      <section class="card">
+        <h2>2 · Job description</h2>
+        <textarea id="job_text" name="job_text" rows="19" required
+          placeholder="Paste the full job description, including requirements…"></textarea>
+      </section>
+
+      <div class="actions">
+        <button type="button" id="sample" class="ghost">Load sample</button>
+        <button type="submit" id="go">Optimize resume</button>
+      </div>
+    </form>
+
+    <section id="progress" class="card hidden" aria-live="polite">
+      <h2>Agent progress</h2>
+      <ol id="steps"></ol>
+      <p id="error" class="error hidden"></p>
+    </section>
+
+    <section id="results" class="hidden"></section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

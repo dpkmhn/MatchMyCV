@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>{{ cv.name }} · CV</title>
+  <style>
+    :root {
+      --ink: #18181b; --muted: #52525b; --rule: #e4e4e7; --accent: #4f46e5; --bg: #f4f4f5;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); }
+    .bar {
+      position: sticky; top: 0; z-index: 1; display: flex; gap: 8px; justify-content: space-between;
+      align-items: center; padding: 10px 20px; background: rgba(255,255,255,.85);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); font-size: 13px;
+    }
+    .bar .meta { color: var(--muted); }
+    .bar .actions { display: flex; gap: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px;
+      border-radius: 9px; border: 1px solid var(--rule); background: #fff; color: var(--ink);
+      font: 500 13px/1 inherit; font-family: inherit; text-decoration: none; cursor: pointer;
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .sheet {
+      width: min(210mm, 100% - 24px); min-height: 297mm; margin: 24px auto 48px; background: #fff;
+      padding: 16mm 18mm; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.08);
+      font-size: 10.5pt; line-height: 1.45;
+    }
+    h1 { margin: 0; font-size: 24pt; letter-spacing: -.02em; line-height: 1.1; }
+    .headline { color: var(--accent); font-size: 12pt; margin-top: 4px; }
+    .contact { color: var(--muted); font-size: 9.5pt; margin-top: 6px; }
+    .contact span + span::before { content: "·"; margin: 0 8px; }
+    h2 {
+      margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 1px solid var(--rule);
+      color: var(--accent); font-size: 10.5pt; letter-spacing: .08em; text-transform: uppercase;
+    }
+    p { margin: 0; }
+    .role { margin-top: 10px; break-inside: avoid-page; }
+    .role:first-of-type { margin-top: 0; }
+    .role-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+    .role-head b { font-weight: 600; }
+    .role-head .dates { color: var(--muted); font-size: 9.5pt; white-space: nowrap; }
+    ul { margin: 3px 0 0; padding-left: 16px; }
+    li { margin: 2px 0; }
+    @media print {
+      body { background: #fff; }
+      .bar { display: none; }
+      .sheet { margin: 0; width: auto; min-height: 0; box-shadow: none; padding: 0; }
+      @page { size: A4; margin: 16mm 18mm; }
+    }
+    @media (max-width: 640px) { .sheet { padding: 24px 20px; min-height: 0; } }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <span class="meta">Tailored CV · version {{ versions }}</span>
+    <span class="actions">
+      <a class="btn" href="/#cv={{ cv_id }}">Edit with a prompt</a>
+      <button class="btn" onclick="window.print()">Print</button>
+      <a class="btn primary" href="/cv/{{ cv_id }}/pdf">Download PDF</a>
+    </span>
+  </div>
+
+  <main class="sheet">
+    <header>
+      <h1>{{ cv.name }}</h1>
+      {% if cv.headline %}<div class="headline">{{ cv.headline }}</div>{% endif %}
+      {% if cv.contact %}
+      <div class="contact">{% for c in cv.contact %}<span>{{ c }}</span>{% endfor %}</div>
+      {% endif %}
+    </header>
+
+    {% if cv.summary %}<h2>Summary</h2><p>{{ cv.summary }}</p>{% endif %}
+    {% if cv.skills %}<h2>Skills</h2><p>{{ cv.skills | join(", ") }}</p>{% endif %}
+
+    {% if cv.experience %}
+    <h2>Experience</h2>
+    {% for r in cv.experience %}
+    <section class="role">
+      <div class="role-head">
+        <span><b>{{ r.title }}</b> · {{ r.company }}</span>
+        {% if r.dates %}<span class="dates">{{ r.dates }}</span>{% endif %}
+      </div>
+      {% if r.bullets %}<ul>{% for b in r.bullets %}<li>{{ b }}</li>{% endfor %}</ul>{% endif %}
+    </section>
+    {% endfor %}
+    {% endif %}
+
+    {% for title, items in [("Projects", cv.projects), ("Education", cv.education), ("Certifications", cv.certifications)] %}
+    {% if items %}<h2>{{ title }}</h2><ul>{% for x in items %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+    {% endfor %}
+  </main>
+</body>
+</html>

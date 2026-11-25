@@ -1,0 +1,29 @@
+ALEX RIVERA
+Software Engineer | Bengaluru, India | alex.rivera@example.com
+
+SUMMARY
+Backend engineer with 4 years of experience building Python services and data pipelines.
+Enjoys working on reliable systems and mentoring junior developers.
+
+SKILLS
+Python, Flask, FastAPI, PostgreSQL, Redis, Docker, AWS (EC2, S3, Lambda), Git, REST APIs,
+Pandas, Celery, GitHub Actions, Linux
+
+EXPERIENCE
+Software Engineer — Finlytics Pvt Ltd                                    Jun 2022 - Present
+- Built REST APIs in FastAPI for the loan-underwriting platform used by 40 partner banks.
+- Moved nightly batch jobs from cron scripts to Celery workers, cutting failed runs from ~15 a month to 2.
+- Worked on a feature that uses OpenAI embeddings to search customer support tickets.
+- Set up GitHub Actions pipelines for tests and Docker image builds.
+- Mentored two interns on code review and testing practices.
+
+Junior Developer — DataNest Solutions                                    Jul 2020 - May 2022
+- Wrote Python ETL scripts with Pandas to load vendor CSV files into PostgreSQL.
+- Responsible for fixing bugs in the Flask admin dashboard.
+- Added Redis caching to the reporting API, reducing average response time from 1.8s to 300ms.
+
+PROJECTS
+- PaperChat: a small RAG demo that answers questions about PDFs using LangChain and FAISS.
+
+EDUCATION
+B.Tech in Computer Science, VIT Vellore, 2020
