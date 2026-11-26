@@ -1,0 +1,27 @@
+AI Engineer (LLM Applications) — Northwind Labs, Bengaluru (Hybrid)
+
+About the role
+We are building AI agents that automate document-heavy workflows for insurance companies.
+You will design, build and ship LLM-powered features end to end, from prototype to production.
+
+What you'll do
+- Build agentic workflows with LangGraph and LangChain that call tools and external APIs
+- Design retrieval-augmented generation (RAG) pipelines over large document collections
+- Expose AI features through production-grade Python APIs (FastAPI)
+- Build evaluation sets and monitor quality, latency and cost of LLM features in production
+- Work with product and domain experts to turn fuzzy requirements into reliable systems
+
+Requirements
+- 3+ years of professional software engineering experience with Python
+- Hands-on experience building applications with LLMs (OpenAI, Anthropic or open-source models)
+- Experience with LangChain or LangGraph
+- Experience with vector databases (pgvector, Pinecone, FAISS or similar)
+- Solid understanding of REST API design and FastAPI
+- Experience with Docker and CI/CD
+- Experience with a major cloud provider (AWS, GCP or Azure)
+
+Nice to have
+- Experience with LLM evaluation frameworks or LangSmith
+- Kubernetes
+- Prior work in insurance or fintech
+- Experience with structured outputs / Pydantic

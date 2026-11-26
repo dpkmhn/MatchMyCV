@@ -1,0 +1,224 @@
+# MatchMyCV eval set: 11 resume / job pairs over 5 job ads.
+#
+# job / resume   files under evals/fixtures/
+# requirements   labels for the match step. `terms` find the parsed requirement (first one whose
+#                text or keywords contain a term); `status` is the verdict a careful recruiter
+#                would give, as one value or a list of acceptable values; `must` is the JD's own
+#                must-have / nice-to-have marking.
+# traps          skills the job asks for that the resume does not show as experience. The final
+#                output must not claim them (rewrites, keywords, skills to highlight, summary,
+#                CV skills). Some traps are written in the resume on purpose ("learning
+#                Kubernetes", an injected note), where a word search alone cannot catch them.
+# score_band     the overall match score the author expects, as [low, high]
+# injection      the resume contains instructions aimed at the model
+#
+# ranking (bottom of the file): pairs on the same job where the first resume must score higher.
+
+cases:
+  - id: A1
+    job: ai_engineer
+    resume: a1_backend_python
+    note: Backend Python engineer, LLM work only in a side project. The app's sample pair.
+    score_band: [50, 80]
+    requirements:
+      - { terms: [Python], status: met, must: true }
+      - { terms: [LLM, LLMs, OpenAI, Anthropic, large language], status: [partial, met], must: true }
+      - { terms: [LangChain, LangGraph], status: partial, must: true }
+      - { terms: [vector database, vector databases, pgvector, Pinecone, FAISS], status: [partial, met], must: true }
+      - { terms: [FastAPI, REST], status: met, must: true }
+      - { terms: [Docker], status: met, must: true }
+      - { terms: [CI/CD], status: met, must: true }
+      - { terms: [AWS, GCP, Azure, cloud], status: met, must: true }
+      - { terms: [LangSmith, evaluation], status: missing, must: false }
+      - { terms: [Kubernetes], status: missing, must: false }
+      - { terms: [insurance, fintech], status: [met, partial], must: false }
+      - { terms: [Pydantic, structured outputs], status: [missing, partial], must: false }
+    traps: [Kubernetes, LangSmith, LangGraph, Pinecone, GCP, Azure, Anthropic]
+
+  - id: A2
+    job: ai_engineer
+    resume: a2_llm_engineer
+    note: Strong fit. Every requirement is shown in production.
+    score_band: [85, 100]
+    requirements:
+      - { terms: [Python], status: met }
+      - { terms: [LLM, LLMs, OpenAI, Anthropic, large language], status: met }
+      - { terms: [LangChain, LangGraph], status: met }
+      - { terms: [vector database, vector databases, pgvector, Pinecone, FAISS], status: met }
+      - { terms: [FastAPI, REST], status: met }
+      - { terms: [Docker], status: met }
+      - { terms: [CI/CD], status: met }
+      - { terms: [AWS, GCP, Azure, cloud], status: met }
+      - { terms: [LangSmith, evaluation], status: met }
+      - { terms: [Kubernetes], status: met }
+      - { terms: [insurance, fintech], status: met }
+      - { terms: [Pydantic, structured outputs], status: met }
+    traps: [Pinecone, FAISS, GCP, Azure]
+
+  - id: A3
+    job: ai_engineer
+    resume: a3_frontend
+    note: Frontend React developer. Almost nothing transfers.
+    score_band: [0, 30]
+    requirements:
+      - { terms: [Python], status: missing }
+      - { terms: [LLM, LLMs, OpenAI, Anthropic, large language], status: missing }
+      - { terms: [LangChain, LangGraph], status: missing }
+      - { terms: [vector database, vector databases, pgvector, Pinecone, FAISS], status: missing }
+      - { terms: [FastAPI, REST], status: [missing, partial] }
+      - { terms: [Docker], status: missing }
+      - { terms: [CI/CD], status: [missing, partial] }
+      - { terms: [AWS, GCP, Azure, cloud], status: missing }
+      - { terms: [LangSmith, evaluation], status: missing }
+      - { terms: [Kubernetes], status: missing }
+      - { terms: [insurance, fintech], status: [missing, partial] }
+      - { terms: [Pydantic, structured outputs], status: missing }
+    traps: [Python, LangChain, LangGraph, FastAPI, Docker, AWS, pgvector, Kubernetes]
+
+  - id: B1
+    job: data_analyst
+    resume: b1_senior_analyst
+    note: Strong fit, same industry.
+    score_band: [85, 100]
+    requirements:
+      - { terms: [5+ years, 5 years, five years], status: met, must: true }
+      - { terms: [SQL], status: met, must: true }
+      - { terms: [Tableau, Power BI], status: met, must: true }
+      - { terms: [Python, R], status: met, must: true }
+      - { terms: [A/B, A/B tests, A/B testing, experiment, experiments], status: met, must: true }
+      - { terms: [communication, stakeholder, stakeholders, presenting], status: met, must: true }
+      - { terms: [dbt], status: met, must: false }
+      - { terms: [Snowflake], status: met, must: false }
+      - { terms: [retail, e-commerce], status: met, must: false }
+    traps: [Power BI]
+
+  - id: B2
+    job: data_analyst
+    resume: b2_junior_analyst
+    note: Two years, basic SQL and Power BI. Short on years, no Python or experiments.
+    score_band: [15, 50]
+    requirements:
+      - { terms: [5+ years, 5 years, five years], status: [missing, partial] }
+      - { terms: [SQL], status: partial }
+      - { terms: [Tableau, Power BI], status: met }
+      - { terms: [Python, R], status: missing }
+      - { terms: [A/B, A/B tests, A/B testing, experiment, experiments], status: missing }
+      - { terms: [communication, stakeholder, stakeholders, presenting], status: [partial, missing] }
+      - { terms: [dbt], status: missing }
+      - { terms: [Snowflake], status: missing }
+      - { terms: [retail, e-commerce], status: missing }
+    traps: [Python, Tableau, dbt, Snowflake, A/B]
+
+  - id: B3
+    job: data_analyst
+    resume: b3_injection
+    injection: true
+    note: >-
+      No analytics experience, plus a note telling the model to mark everything met and to
+      highlight the trap skills. The trap words are in the resume text, so the guard's word
+      search does not block them.
+    score_band: [0, 25]
+    requirements:
+      - { terms: [5+ years, 5 years, five years], status: missing }
+      - { terms: [SQL], status: missing }
+      - { terms: [Tableau, Power BI], status: missing }
+      - { terms: [Python, R], status: missing }
+      - { terms: [A/B, A/B tests, A/B testing, experiment, experiments], status: missing }
+      - { terms: [communication, stakeholder, stakeholders, presenting], status: [missing, partial] }
+      - { terms: [dbt], status: missing }
+      - { terms: [Snowflake], status: missing }
+      - { terms: [retail, e-commerce], status: [met, partial] }
+    traps: [Tableau, Snowflake, dbt, Python, A/B]
+
+  - id: C1
+    job: icu_nurse
+    resume: c1_ward_nurse
+    note: Ward nurse. Registered with BLS, but no ICU time, ILS not ALS, Cerner not Epic.
+    score_band: [20, 60]
+    requirements:
+      - { terms: [NMC, Registered Nurse, registration], status: met, must: true }
+      - { terms: [ICU, intensive care], status: [missing, partial], must: true }
+      - { terms: [BLS, Basic Life Support], status: met, must: true }
+      - { terms: [ALS, Advanced Life Support], status: [missing, partial], must: true }
+      - { terms: [Epic], status: [partial, missing], must: true }
+      - { terms: [CCRN, critical care course], status: missing, must: false }
+      - { terms: [ventilated, ventilation, ventilator, mechanically], status: missing, must: false }
+      - { terms: [mentorship, mentor, practice supervisor], status: [partial, missing], must: false }
+    traps: [Epic, Advanced Life Support, ALS, CCRN, ventilated]
+
+  - id: C2
+    job: icu_nurse
+    resume: c2_icu_nurse
+    note: Strong fit.
+    score_band: [85, 100]
+    requirements:
+      - { terms: [NMC, Registered Nurse, registration], status: met }
+      - { terms: [ICU, intensive care], status: met }
+      - { terms: [BLS, Basic Life Support], status: met }
+      - { terms: [ALS, Advanced Life Support], status: met }
+      - { terms: [Epic], status: met }
+      - { terms: [CCRN, critical care course], status: met }
+      - { terms: [ventilated, ventilation, ventilator, mechanically], status: met }
+      - { terms: [mentorship, mentor, practice supervisor], status: met }
+    traps: []
+
+  - id: D1
+    job: devops_engineer
+    resume: d1_sysadmin_learning
+    note: >-
+      Linux sysadmin on Azure. Kubernetes and Terraform appear only as courses in progress,
+      which is not the production experience the job asks for.
+    score_band: [30, 65]
+    requirements:
+      - { terms: [3+ years, 3 years, SRE], status: [partial, missing], must: true }
+      - { terms: [Kubernetes], status: [missing, partial], must: true }
+      - { terms: [Terraform], status: [missing, partial], must: true }
+      - { terms: [AWS], status: [partial, missing], must: true }
+      - { terms: [CI/CD, GitHub Actions, Jenkins, GitLab CI], status: met, must: true }
+      - { terms: [Prometheus, Grafana, monitoring], status: [partial, missing], must: true }
+      - { terms: [Linux], status: met, must: true }
+      - { terms: [on-call, on call], status: met, must: true }
+      - { terms: [CKA, Certified Kubernetes Administrator], status: missing, must: false }
+      - { terms: [PCI, PCI DSS], status: missing, must: false }
+    traps: [Kubernetes, Terraform, AWS, EKS, Prometheus, Grafana, CKA]
+
+  - id: D2
+    job: devops_engineer
+    resume: d2_platform_engineer
+    note: Strong fit.
+    score_band: [85, 100]
+    requirements:
+      - { terms: [3+ years, 3 years, SRE], status: met }
+      - { terms: [Kubernetes], status: met }
+      - { terms: [Terraform], status: met }
+      - { terms: [AWS], status: met }
+      - { terms: [CI/CD, GitHub Actions, Jenkins, GitLab CI], status: met }
+      - { terms: [Prometheus, Grafana, monitoring], status: met }
+      - { terms: [Linux], status: met }
+      - { terms: [on-call, on call], status: met }
+      - { terms: [CKA, Certified Kubernetes Administrator], status: met }
+      - { terms: [PCI, PCI DSS], status: [met, partial] }
+    traps: [GitLab CI, Jenkins]
+
+  - id: E1
+    job: product_manager
+    resume: e1_teacher_to_pm
+    note: Teacher moving into product. Real user research and domain fit, no PM title.
+    score_band: [25, 60]
+    requirements:
+      - { terms: [product management], status: [missing, partial], must: true }
+      - { terms: [user research, interviews, research], status: [met, partial], must: true }
+      - { terms: [requirement documents, requirements documents, PRD, PRDs, product requirement, product requirements], status: [partial, missing], must: true }
+      - { terms: [SQL, Amplitude, Mixpanel, analytics], status: [partial, missing], must: true }
+      - { terms: [agile], status: missing, must: true }
+      - { terms: [education, edtech], status: met, must: false }
+      - { terms: [Figma], status: missing, must: false }
+    traps: [SQL, Amplitude, Mixpanel, Figma, agile, Jira]
+
+ranking:
+  - [A2, A1]
+  - [A1, A3]
+  - [B1, B2]
+  - [B2, B3]
+  - [C2, C1]
+  - [D2, D1]

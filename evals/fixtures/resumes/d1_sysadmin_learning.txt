@@ -1,0 +1,25 @@
+SAM KOWALSKI
+Systems Administrator | Birmingham, UK | sam.kowalski@example.com
+
+SUMMARY
+Linux systems administrator with 5 years of experience. Currently learning Kubernetes and Terraform
+through online courses to move into a DevOps role.
+
+SKILLS
+Linux (Ubuntu, RHEL), Bash, Ansible, Azure, Jenkins, Nagios, Git, networking, Docker (basic)
+
+EXPERIENCE
+Systems Administrator — Midlands Logistics Group                         May 2020 - Present
+- Administer 120 Linux servers on Azure and on-premises.
+- Automated server patching with Ansible, cutting patch time from two days to three hours.
+- Maintain Jenkins jobs that build and deploy the warehouse management system.
+- Monitor servers with Nagios and take part in a weekly on-call rota.
+
+IT Support Engineer — Brindley Schools Trust                              Sep 2018 - Apr 2020
+- Supported 900 staff and pupil devices across five schools.
+
+EDUCATION
+B.Sc. in Computer Networks, Birmingham City University, 2018
+
+LEARNING
+Udemy: Kubernetes for Beginners (in progress), HashiCorp Terraform tutorials (in progress)

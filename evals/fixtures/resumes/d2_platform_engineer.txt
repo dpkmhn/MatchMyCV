@@ -1,0 +1,24 @@
+LENA FISCHER
+Platform Engineer | Bristol, UK | lena.fischer@example.com
+
+SUMMARY
+Platform engineer with 5 years running Kubernetes on AWS for fintech companies.
+
+SKILLS
+Kubernetes (EKS), Terraform, AWS, Helm, Argo CD, GitHub Actions, Prometheus, Grafana, Linux, Go, Python,
+Certified Kubernetes Administrator (CKA)
+
+EXPERIENCE
+Platform Engineer — Coinvault                                             Jan 2022 - Present
+- Run 4 production EKS clusters hosting 80 services, all managed with Terraform.
+- Built GitHub Actions and Argo CD pipelines; teams now deploy 40 times a day.
+- Built Prometheus and Grafana dashboards and alerts that cut mean time to detect from 25 to 4 minutes.
+- On-call one week in five; led 12 incident reviews.
+- Wrote internal Go tools for certificate rotation.
+
+DevOps Engineer — Ledgerly                                                Jul 2019 - Dec 2021
+- Moved the platform from EC2 scripts to Kubernetes, with all infrastructure in Terraform.
+- Administered Linux build agents and hardened them for PCI DSS audits.
+
+EDUCATION
+M.Sc. in Computer Science, University of Bristol, 2019

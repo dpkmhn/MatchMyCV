@@ -1,0 +1,24 @@
+Senior Data Analyst — Cartwheel Retail, Manchester (Hybrid)
+
+About us
+Cartwheel runs 140 grocery and homeware stores across the North of England and a growing online shop.
+The analytics team turns sales, loyalty and supply data into decisions for merchandising and marketing.
+
+What you'll do
+- Own weekly trading reports for category managers and the leadership team
+- Design and analyse A/B tests for the website and loyalty offers
+- Build and maintain dashboards that replace manual spreadsheet reporting
+- Present findings to non-technical stakeholders and recommend actions
+
+Requirements
+- 5+ years of experience in a data analyst or similar analytics role
+- Advanced SQL (window functions, CTEs, query performance)
+- Experience with Tableau or Power BI
+- Python or R for analysis
+- Experience designing and analysing A/B tests
+- Strong communication skills and experience presenting to senior stakeholders
+
+Nice to have
+- dbt
+- Snowflake
+- Experience in retail or e-commerce

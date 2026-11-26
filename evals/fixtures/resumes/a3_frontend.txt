@@ -1,0 +1,21 @@
+MARCUS OKAFOR
+Frontend Developer | Lagos, Nigeria | marcus.okafor@example.com
+
+SUMMARY
+Frontend developer with 3 years of experience building responsive web apps in React and TypeScript.
+
+SKILLS
+JavaScript, TypeScript, React, Next.js, Redux, Tailwind CSS, HTML, CSS, Jest, Cypress, Figma, Git
+
+EXPERIENCE
+Frontend Developer — ShopLane                                            Feb 2022 - Present
+- Built the checkout flow in React and TypeScript, cutting cart abandonment by 12%.
+- Created a shared component library used by four product teams.
+- Wrote Cypress end-to-end tests for the order and payment pages.
+
+Junior Web Developer — PixelForge Agency                                 Jan 2021 - Jan 2022
+- Built marketing websites for clients with HTML, CSS and JavaScript.
+- Turned Figma designs into pixel-accurate pages.
+
+EDUCATION
+B.Sc. in Computer Science, University of Lagos, 2020

@@ -1,0 +1,26 @@
+DevOps Engineer — Halberd Payments, Remote (UK)
+
+Halberd processes card payments for 3,000 small businesses. The platform team keeps 60 services running
+around the clock and makes it easy for product teams to ship safely.
+
+You will
+- Run and improve our Kubernetes clusters on AWS (EKS)
+- Manage infrastructure as code with Terraform
+- Own CI/CD pipelines and help teams deploy many times a day
+- Build monitoring and alerting with Prometheus and Grafana
+- Join the on-call rotation and lead incident reviews
+
+Must have
+- 3+ years in a DevOps, SRE or platform engineering role
+- Production experience with Kubernetes
+- Terraform
+- AWS
+- CI/CD pipelines (GitHub Actions, GitLab CI or Jenkins)
+- Monitoring with Prometheus and Grafana
+- Strong Linux administration skills
+- On-call experience
+
+Nice to have
+- Go
+- Certified Kubernetes Administrator (CKA)
+- PCI DSS experience

@@ -1,0 +1,25 @@
+PRIYA NAIR
+Senior AI Engineer | Bengaluru, India | priya.nair@example.com | github.com/priyanair
+
+SUMMARY
+Python engineer with 6 years of experience, the last 2 building LLM agents and RAG systems in production
+for an insurance claims platform.
+
+SKILLS
+Python, LangGraph, LangChain, LangSmith, OpenAI API, Anthropic Claude, pgvector, PostgreSQL, FastAPI,
+Pydantic, Docker, Kubernetes, AWS (ECS, EKS, Lambda, S3), GitHub Actions, Terraform
+
+EXPERIENCE
+Senior AI Engineer — ClaimWise Insurance Tech                           Mar 2023 - Present
+- Built a LangGraph agent that reads claim documents and drafts adjuster notes, used on 9,000 claims a month.
+- Designed a RAG pipeline over 2 million policy pages with pgvector and hybrid search; answer accuracy rose from 71% to 88% on our eval set.
+- Set up LangSmith tracing and a 300-question regression eval that runs in CI before every prompt change.
+- Exposed the agents through FastAPI services with Pydantic structured outputs, deployed on EKS.
+
+Software Engineer — PayGrid                                              Jun 2019 - Feb 2023
+- Built Python microservices for merchant payouts processing $40M a month.
+- Containerised 14 services with Docker and moved them to Kubernetes on AWS.
+- Maintained GitHub Actions pipelines for testing and deployment.
+
+EDUCATION
+B.E. in Computer Science, RV College of Engineering, 2019

@@ -1,0 +1,20 @@
+TOM WALSH
+Data Analyst | Manchester, UK | tom.walsh@example.com
+
+SUMMARY
+Analyst with 2 years of experience producing reports for an operations team.
+
+SKILLS
+Excel (pivot tables, VLOOKUP), SQL, Power BI, Google Sheets
+
+EXPERIENCE
+Data Analyst — Brightway Logistics                                       Oct 2023 - Present
+- Write SQL queries to pull delivery data for the weekly operations report.
+- Built three Power BI dashboards for depot managers.
+- Clean and reconcile driver timesheet data in Excel.
+
+Operations Assistant — Brightway Logistics                               Jun 2022 - Sep 2023
+- Tracked late deliveries in spreadsheets and emailed a daily summary to the team.
+
+EDUCATION
+B.A. in Business Management, Manchester Metropolitan University, 2022

@@ -1,0 +1,24 @@
+HANNAH BROOKES
+Senior Data Analyst | Leeds, UK | hannah.brookes@example.com
+
+SUMMARY
+Data analyst with 7 years of experience in retail and e-commerce analytics. I turn messy trading data into
+clear recommendations for commercial teams.
+
+SKILLS
+SQL (window functions, CTEs, query tuning), Python (pandas, statsmodels), Tableau, Excel, dbt, Snowflake,
+A/B testing, experiment design, stakeholder presentations
+
+EXPERIENCE
+Senior Data Analyst — Northbrook Home & Garden                          Apr 2021 - Present
+- Own the weekly trading pack for 22 category managers and the executive team, built in Tableau on Snowflake.
+- Designed and analysed 30+ website A/B tests; the checkout test alone added £1.2M in annual revenue.
+- Rebuilt the sales data model in dbt, cutting report refresh time from 3 hours to 20 minutes.
+- Present monthly insights to the commercial director and board.
+
+Data Analyst — Fennick Online                                            Sep 2017 - Mar 2021
+- Wrote SQL and Python analyses of customer churn for the CRM team.
+- Replaced 15 manual Excel reports with Tableau dashboards.
+
+EDUCATION
+B.Sc. in Mathematics, University of York, 2017

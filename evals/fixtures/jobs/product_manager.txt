@@ -1,0 +1,21 @@
+Associate Product Manager — Lumio Learning, London
+
+Lumio builds a reading app used by 400 primary schools. Teachers set reading, pupils read and answer
+questions, and the app adapts to each child.
+
+What you'll do
+- Talk to teachers and pupils every week and turn what you learn into clear problem statements
+- Write product requirements and work with designers and engineers to ship features
+- Prioritise the roadmap for the teacher dashboard
+- Define success metrics and track them after each release
+
+Requirements
+- 1+ years of product management experience
+- Experience running user research interviews
+- Ability to write clear product requirement documents
+- Comfortable with data: SQL or a product analytics tool such as Amplitude or Mixpanel
+- Experience working with agile software teams
+
+Nice to have
+- Background in education or edtech
+- Experience with Figma

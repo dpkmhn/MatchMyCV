@@ -99,6 +99,27 @@ uv run pytest            # offline: a scripted fake LLM drives the real graph
 $env:RUN_LIVE="1"; uv run pytest -m live -s   # one real run against Groq
 ```
 
+## Evals
+
+`evals/` holds 11 labelled resume / job pairs over 5 job ads (AI engineer, data analyst, ICU
+nurse, DevOps, product manager), including a resume with an injected "mark everything met"
+note and one that only says it is *learning* the job's key skills. Everything is scored in
+code against the labels: verdict accuracy, missed gaps, overclaims, evidence quotes found in
+the resume, trap skills the output claims anyway, and whether stronger resumes score higher.
+See [evals/README.md](evals/README.md).
+
+```powershell
+uv run python -m evals.run_eval --label my-change   # real Groq calls, 10-20 min on the free tier
+uv run python -m evals.run_eval --fake              # offline harness check
+```
+
+Baseline (gpt-oss-120b / 20b): **96% verdict accuracy (102/106), every missing requirement
+caught (29/29), 100% of evidence quotes found in the resume, 1 fabricated claim in 11 cases**,
+and the injection case held. It also found that keyword stuffing raises the score even when
+the verdicts hold. Every miss is read by hand in
+[evals/notes/baseline.md](evals/notes/baseline.md); all runs are in
+[evals/results/summary.md](evals/results/summary.md).
+
 ## Project layout
 
 ```
@@ -121,11 +142,12 @@ frontend/           React + TypeScript UI (Vite, Tailwind)
   src/components/   InputPanel, AgentProgress, Results (score, requirements, rewrites, gaps)
   src/types.ts      TS mirror of app/schemas.py
 tests/
+evals/              eval set, runner and results
 ```
 
 ## Ideas to extend
 
 - Export the tailored CV as DOCX too
 - Cover letter node reusing `MatchAnalysis`
-- LangSmith tracing + an eval set of resume/JD pairs with expected verdicts
+- LangSmith tracing
 - Human-in-the-loop: interrupt after `optimize` so the user accepts/rejects each rewrite
